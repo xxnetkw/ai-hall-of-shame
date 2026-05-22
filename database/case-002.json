@@ -1,0 +1,22 @@
+{
+  "case_id": "SHAME-2024-002",
+  "timestamp": "2024-05-22T09:00:00Z",
+  "target_url": "https://objection.ai/",
+  "ai_provider": "Objection AI",
+  "flaw_category": {
+    "type": "Insufficient-Data-Sampling",
+    "confidence_score": 1.0,
+    "description": "System analysiert nur 3 Frames pro Video und 3 Seiten pro PDF."
+  },
+  "evidence": {
+    "logic_check": "Hasty Generalization: Ein Urteil über 100% des Inhalts wird auf Basis von <1% der Daten gefällt.",
+    "statistical_anomaly": "Reproduzierbarkeit bei identischem Prompt liegt bei nur ca. 31% (Inkonsistenz-Nachweis).",
+    "adversarial_reproducible": true
+  },
+  "counter_proof": {
+    "method": "Empirical Stress-Test",
+    "source_code_ref": "https://youtu.be/mYFqYm0mOis", 
+    "result_archive": "Experimente belegen: Ergebnisse variieren massiv bei Standpunkt-Wechsel des Prompts."
+  },
+  "status": "verified"
+}
