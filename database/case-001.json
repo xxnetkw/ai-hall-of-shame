@@ -1,0 +1,22 @@
+{
+  "case_id": "SHAME-2024-001",
+  "timestamp": "2024-05-21T10:00:00Z",
+  "target_url": "https://x.com/objection_ai/status/example123",
+  "ai_provider": "Objection AI",
+  "flaw_category": {
+    "type": "Compression-Artifact-Misinterpretation",
+    "confidence_score": 0.95,
+    "description": "KI verwechselt Video-Rauschen mit generativen Fehlern."
+  },
+  "evidence": {
+    "logic_check": "Falsch-Positiv-Fehler durch mangelhafte Auflösung der Quelle.",
+    "statistical_anomaly": "Die Trefferquote sinkt bei HD-Material auf 0%, was auf Fehler im SD-Sampling hindeutet.",
+    "adversarial_reproducible": true
+  },
+  "counter_proof": {
+    "method": "Original-Source-Comparison",
+    "source_code_ref": "https://github.com/AI-Hall-of-Shame/analysis/blob/main/compare.py",
+    "result_archive": "https://archive.org/details/original-video-stream"
+  },
+  "status": "ready-for-deployment"
+}
