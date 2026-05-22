@@ -1,0 +1,24 @@
+name: JSON Validierung
+
+# Der Workflow startet jedes Mal, wenn du etwas hochlädst (Push)
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Den Code aus dem Repository holen
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Alle JSON-Dateien im database-Ordner auf Syntaxfehler prüfen
+      - name: Prüfe JSON Syntax
+        run: |
+          for file in database/*.json; do
+            echo "Prüfe Datei: $file"
+            python3 -m json.tool "$file" > /dev/null
+          done
