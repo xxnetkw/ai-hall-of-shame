@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Hall of Shame | Counter-Infrastruktur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; }
+        .case-card { border-left: 4px solid #ef4444; transition: transform 0.2s; }
+        .case-card:hover { transform: scale(1.02); }
+    </style>
+</head>
+<body class="p-8">
+    <header class="max-w-4xl mx-auto mb-12 border-b border-slate-700 pb-6">
+        <h1 class="text-4xl font-bold text-red-550 mb-2 uppercase tracking-widest text-red-500">AI Hall of Shame</h1>
+        <p class="text-slate-400">Automatisierte Dokumentation methodischer Schwächen privater KI-Tribunale.</p>
+    </header>
+
+    <main id="cases-container" class="max-w-4xl mx-auto grid gap-6">
+        <!-- Hier landen die Fälle automatisch -->
+        <p class="text-slate-500 animate-pulse">Lade Beweisdaten aus der Datenbank...</p>
+    </main>
+
+    <script>
+        // Wir definieren hier, welche Fälle wir haben (später automatisieren wir das)
+        const cases = ["case-001.json", "case-002.json"];
+        const container = document.getElementById('cases-container');
+
+        async function loadCases() {
+            container.innerHTML = "";
+            for (const file of cases) {
+                try {
+                    const response = await fetch(`../database/${file}`);
+                    const data = await response.json();
+                    
+                    const card = document.createElement('div');
+                    card.className = "case-card bg-slate-800 p-6 rounded-r-lg shadow-xl";
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-mono text-red-400 bg-red-400/10 px-2 py-1 rounded">${data.case_id}</span>
+                            <span class="text-xs text-slate-500 font-mono">${data.timestamp}</span>
+                        </div>
+                        <h2 class="text-xl font-bold mb-2">${data.ai_provider} - ${data.flaw_category.type}</h2>
+                        <p class="text-slate-300 mb-4 italic">"${data.flaw_category.description}"</p>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div class="bg-slate-900/50 p-3 rounded">
+                                <h3 class="text-red-400 font-bold mb-1 underline">Logik-Fehler</h3>
+                                <p>${data.evidence.logic_check}</p>
+                            </div>
+                            <div class="bg-slate-900/50 p-3 rounded">
+                                <h3 class="text-red-400 font-bold mb-1 underline">Gegenbeweis</h3>
+                                <p>${data.counter_proof.method}</p>
+                                <a href="${data.counter_proof.source_code_ref}" target="_blank" class="text-blue-400 hover:underline mt-2 inline-block">Quelle →</a>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                } catch (e) {
+                    console.error("Fehler beim Laden:", file);
+                }
+            }
+        }
+        loadCases();
+    </script>
+</body>
+</html>
